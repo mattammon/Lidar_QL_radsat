@@ -17,6 +17,25 @@ import utils as func
 from functions import closest_value_index as CVI
 
 def quicklook_radsat(profiler, vad_file, dlfp_file, sat_path, time_interval, y_bounds, w_range, date, radar_site, save_loc):
+    """
+    This is the main program that produces the plots themselves. Import this function into a separate
+    python file and run it with necessary inputs (explained below) to output plots in png format.
+    
+    Function Inputs:
+    - profiler: this is simply the name of the profiler that the plot is relevant to (in string format)
+                for titling purposes (i.e. "Lidar Truck", "CLAMPS 2")
+    - vad_file: file path of dlvad NetCDF file relevant to the date and profiler for plotting (string format)
+    - dlfp_file: file path of dlvad NetCDF file relevant to the desired date and profiler for plotting (string format)
+    - sat_path: file path of NetCDF file containing satellite data (string format)
+    - time_interval: time duration of vertical profile plots surrounding specific time (integer format)
+    - y_bounds: height bounds for vertical profile plots. i.e. 0-3km plot would entail y_bounds = [0,3] (list format)
+    - w_range: vmin and vmax values for vertical velocity plot (i.e. vmin = -10 m/s, vmax = 10 m/s ------> w_range = [-10,10]) (list format)
+    - date: timestamp of desired date and time for plot in 'YYYYMMDDHHMM' string format
+    - radar_site: 4 letter name of desired radar site in string format (i.e. Jackson, MS radar site is 'KDGX')
+    - save_loc: file path of desired location for saving the figure (in string format). If saving is not desired input False
+    
+    *** Many functions are used within that are located and explained in the utils.py file ***
+    """
 
     time,hgt,wspd,intensity,backscatter = func.dlfp_vars(dlfp_file)[0:5]
     time_vad, hgt_vad, wspd_vad, wdir, intensity_vad, lat, lon = func.dlvad_vars(vad_file)[0:7]
